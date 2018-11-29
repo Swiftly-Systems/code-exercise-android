@@ -21,13 +21,13 @@ We need a Android app that allows customers to see which products are on "Manage
 * The size of each product tile must be the size specified by the endpoint (See "Endpoint" for more information about sizing)
 * Display as many products as possible while still following sizing parameters
 * If the combined width of the product frames exceeds the full width of the phone move the product frame to the next line and center any frames that do not fit in the full width frame.
-* The endpoint must be used to get data: http://prestoq.com/android-coding-challenge
+* The endpoint must be used to get data: https://prestoq.com/android-coding-challenge
 
 ## Mockup
 <img src="https://github.com/prestoqinc/code-exercise-android/blob/master/managerSpecial.png" width="400"/>
 
 ### Endpoint
-* http://prestoq.com/android-coding-challenge
+* https://prestoq.com/android-coding-challenge
 * The endpoint will provide a 'canvasUnit' which is used to specified the dimensions of each product frame (the height and width of the frame will be using canvasUnit). The canvasUnit will determine how many divisible units fits into the full width of the phone. 
 ** For example: if the canvasUnit is 8 and the total width fo the phone is 360px then each unit is 360px/8 = 45px. Which means given a product frame a width of 6 canvasUnit and a height of 3 canvasUnit, the product frame would be 270px (width) by 135px (height).
 * No product frame will have a width greater than the canvasUnit
