@@ -1,6 +1,6 @@
 # PrestoQ iOS Coding Exercise
 
-## Overview
+## Preface
 
 To introduce PrestoQ to your coding style and technique, we'd like you to do a small coding exercise. This is not a coding test where we give you a score or run it through a suite of tests for correctness.
 
@@ -24,7 +24,8 @@ We need an iOS app that allows customers to see which products are on "Manager's
 * The endpoint must be used to get data: http://prestoq.com/ios-coding-challenge
 
 ## Mockup
-![Manager's Special Mock](https://github.com/prestoqinc/code-exercise-android/blob/master/managerSpecial.png "Manager's Special Mock")
+<<<<<<< HEAD
+<img src="https://github.com/prestoqinc/code-exercise-android/blob/master/managerSpecial.png" width="400"/>
 
 ### Endpoint
 * http://prestoq.com/ios-coding-challenge
