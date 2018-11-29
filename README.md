@@ -24,7 +24,6 @@ We need an iOS app that allows customers to see which products are on "Manager's
 * The endpoint must be used to get data: http://prestoq.com/ios-coding-challenge
 
 ## Mockup
-<<<<<<< HEAD
 <img src="https://github.com/prestoqinc/code-exercise-android/blob/master/managerSpecial.png" width="400"/>
 
 ### Endpoint
