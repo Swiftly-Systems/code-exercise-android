@@ -14,7 +14,7 @@ Think of this as real code you would be checking in. PrestoQ values self-descrip
 Grocery store managers often pick products to put on "manager's special." These products are chosen in order to drive customers to the store and increase basket size. PrestoQ has a tool that allows managers to select which product they want to place under "manager's specials" as well as the dimensions of product frame.
 
 ## Product Requirements
-We need a Android app that allows customers to see which products are on "Manager's Special". Given an endpoint that returns a JSON response of all products currently on "Manager's Special", build a page that displays all products and follows the provided mock-up.
+We need an Android app that allows customers to see which products are on "Manager's Special". Given an endpoint that returns a JSON response of all products currently on "Manager's Special", build a page that displays all products and follows the provided mock-up.
 
 * Manager's Specials change periodically; at any moment a store manager could decide to add or remove a product
 * The products must be displayed in the order they are provided
