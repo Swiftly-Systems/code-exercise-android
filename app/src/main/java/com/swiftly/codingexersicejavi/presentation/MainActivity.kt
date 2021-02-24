@@ -1,7 +1,8 @@
-package com.swiftly.codingexersicejavi
+package com.swiftly.codingexersicejavi.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.swiftly.codingexersicejavi.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
