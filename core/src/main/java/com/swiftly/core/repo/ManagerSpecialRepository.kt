@@ -1,5 +1,10 @@
 package com.swiftly.core.repo
 
-class ManagerSpecialRepository(private val dataSource: ManagerSpecialDataSource) {
-    suspend fun getAllSpecials() = dataSource.getAll()
+import com.swiftly.core.data.ManagerSpecialList
+import com.swiftly.core.data.Resource
+
+interface ManagerSpecialRepository {
+    suspend fun getAllSpecials(): Resource<ManagerSpecialList?>?
+    suspend fun setAllSpecials(list: ManagerSpecialList?)
+    fun isStale(): Boolean
 }

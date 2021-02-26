@@ -1,7 +1,8 @@
 package com.swiftly.core.repo
 
-import com.swiftly.core.data.ManagerSpecial
+import com.swiftly.core.data.ManagerSpecialList
 
 interface ManagerSpecialDataSource {
-    suspend fun getAll(): List<ManagerSpecial>?
+    suspend fun getAll(): ManagerSpecialList?
+    suspend fun setAll(list: ManagerSpecialList?)
 }

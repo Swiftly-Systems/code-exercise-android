@@ -8,72 +8,67 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.swiftly.codingexersicejavi.utils.StringResponseParser
 import com.swiftly.core.data.ManagerSpecial
+import com.swiftly.core.data.ManagerSpecialList
+import com.swiftly.core.data.Resource
 import com.swiftly.core.repo.ManagerSpecialDataSource
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class ManagerSpecialService(private val mContext: Context) : ManagerSpecialDataSource {
+class ManagerSpecialService (private val mContext: Context, private val db: ManagerSpecialDataSource){
 
     private val TAG: String = "ManagerSpecialService";
-//    private var uwJob = Job()
-//    private val uwScope = CoroutineScope(Dispatchers.Main + uwJob)
-
 
     companion object {
         @Volatile
         private var INSTANCE: ManagerSpecialService? = null
 
         @Synchronized
-        fun getInstance(ctx: Context): ManagerSpecialDataSource
-                = INSTANCE ?: ManagerSpecialService(ctx).also { INSTANCE = it }
+        fun getInstance(ctx: Context, db: ManagerSpecialDataSource): ManagerSpecialService
+                = INSTANCE ?: ManagerSpecialService(ctx, db).also { INSTANCE = it }
     }
 
-    init {
-
-    }
-
-    override suspend fun getAll(): List<ManagerSpecial>? {
-
+    suspend fun fetchAllSpecials(): Resource<ManagerSpecialList?>? {
         Log.d(TAG, "fetching specials..")
-        val url = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-android/master/backup"
+        var resource = fetchManagerSpecials(mContext)
+        if (resource != null && resource is Resource.Success)
+            db.setAll(resource!!.data)
 
-        return fetchManagerSpecials(mContext, url)?.data
-
+        return resource
     }
 
-    private suspend fun fetchManagerSpecials(context: Context, url: String): ManagerSpecialResponse? {
-        return suspendCoroutine<ManagerSpecialResponse?> { cont ->
+    private suspend fun fetchManagerSpecials(context: Context): Resource<ManagerSpecialList?> {
+        return suspendCoroutine<Resource<ManagerSpecialList?>> { cont ->
 
             val queue = Volley.newRequestQueue(context)
-            val urlparam = url
+            val url = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-android/master/backup"
 
-            if (urlparam.isNullOrBlank())
+            if (url.isNullOrBlank())
                 return@suspendCoroutine
 
-            val stringRequest: StringRequest = test(url, cont)
-
+            val stringRequest: StringRequest = fetchManagerSpecialsHelper(url, cont)
+            stringRequest.setShouldCache(false);
             queue.add(stringRequest)
         }
     }
 
-    private fun test(url: String, cont: Continuation<ManagerSpecialResponse?>): StringRequest{
+    private fun fetchManagerSpecialsHelper(url: String, cont: Continuation<Resource<ManagerSpecialList?>>): StringRequest{
        return object : StringRequest(Method.GET, url,
             Response.Listener<String> { response ->
 
-                var list: List<ManagerSpecial>? = null
+                var list: ManagerSpecialList? = null
                 list = StringResponseParser.parseManagerSpecialResponse(response)
-                if (list!=null)
-                    Log.d(TAG,"parsed list size of.." + list.size)
+                if (list != null && list.managerSpecials != null)
+                    Log.d(TAG,"parsed list size of.." + list!!.managerSpecials!!.size)
 
-                var specials = ManagerSpecialResponse(data = list)
+                var specials = Resource.Success<ManagerSpecialList?>(data = list)
                 cont.resume(specials)
                 Log.d(TAG, response)
 
             },
             Response.ErrorListener { it ->
 
-                var specials = ManagerSpecialResponse(error = 1)
+                var specials = Resource.Error<ManagerSpecialList?>(message = "Network Error")
                 cont.resume(specials)
 
             }
